@@ -1,0 +1,363 @@
+<section class="bg-white dark:bg-gray-900">
+
+
+    @if(isLoaded){
+    <div class="relative items-center block py-8 px-4 mx-auto max-w-3xl ">
+        <h1 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Add a new product</h1>
+        <form [formGroup]="formCreate" (ngSubmit)="onSubmit(formCreate.value)">
+            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                <div class="w-full">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title
+                    </label>
+                    <input type="text"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Barbar shop | Pune" formControlName="title">
+                </div>
+
+                <div class="w-full">
+                    <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
+                        Location</label>
+                    <select formControlName="location" id="location"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected value="">Choose a location</option>
+                        @for(l of locationsData; track l){
+                        <option value="{{l.id}}">{{l.title}}</option>
+                        }
+
+                    </select>
+                </div>
+
+                <div class="w-full" style="position: relative;">
+                    <label for="countries_multiple"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Area</label>
+                    <button id="dropdownSearchButtonArea" data-dropdown-toggle="dropdownSearchArea"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block-flex w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        type="button">Select your area <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 4 4 4-4" />
+                        </svg></button> <!-- Dropdown menu -->
+                    <div id="dropdownSearchArea" class="z-10  bg-white rounded-lg shadow w-full dark:bg-gray-700">
+
+                        <ul class="h-25 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownSearchButtonArea">
+
+                            @for(a of areasData; track a){
+
+                            <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <input id="checkbox-item-{{a.id}}" type="radio" [value]="a.id"
+                                    (change)="onCheckboxChange($event, a.id , 'areas')"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="checkbox-item-{{a.id}}"
+                                    class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{a.title}}</label>
+                            </div>
+                            }
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="w-full" style="position: relative;">
+                    <label for="countries_multiple"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Category</label>
+                    <button id="dropdownSearchButtonCategory" data-dropdown-toggle="dropdownSearchCategory"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block-flex w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        type="button">Select your Category <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 4 4 4-4" />
+                        </svg></button> <!-- Dropdown menu -->
+                    <div id="dropdownSearchCategory" class="z-10  bg-white rounded-lg shadow w-full dark:bg-gray-700">
+
+                        <ul class="h-25 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownSearchButtonCategory">
+
+                            @for(a of categoryData; track a){
+
+                            <li>
+                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <input id="checkbox-item-11-{{a.id}}" type="checkbox" value="{{a.id}}"
+                                        (change)="onCheckboxChange($event, a.id , 'category')"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="checkbox-item-11-{{a.id}}"
+                                        class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{a.title}}</label>
+                                </div>
+                            </li>
+                            }
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="sm:col-span-2 " style="position: relative;">
+                    <label for="countries_multiple"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Services</label>
+                    <button id="dropdownSearchButtonService" data-dropdown-toggle="dropdownSearchService"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block-flex w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        type="button">Select your Services <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 4 4 4-4" />
+                        </svg></button>
+                    <div id="dropdownSearchService" class="z-10  bg-white rounded-lg shadow w-full dark:bg-gray-700">
+
+                        <ul class="h-20 px-3 pb-3 overflow-auto text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownSearchButtonService">
+
+                            @for(t of typesData; track t){
+                            <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <input id="checkbox-item-{{t.id}}" type="checkbox" [value]="t.id"
+                                    (change)="onCheckboxChange($event, t.id, 'services')"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="checkbox-item-{{t.id}}"
+                                    class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{t.title}}</label>
+                            </div>
+                            }
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <div class="w-full">
+                    <label for="countries_multiple"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Feature Image</label>
+                    <label for="dropzone-file"
+                        class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                            </svg>
+                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click
+                                    to upload</span> or drag and drop</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400"> PNG, JPG (MAX. 800x400px)</p>
+                        </div>
+
+                        <input id="dropzone-file" (change)="onFileSelected($event)" type="file" class="hidden" />
+                    </label>
+
+                    <button [disabled]="isImgUpload" type="button" (click)="onUpload()"
+                        class="mt-3 px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Upload</button>
+
+                    @if(isImgUpload){
+                    <span role="status">
+                        <svg aria-hidden="true"
+                            class="ml-5 inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                            viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                fill="currentColor" />
+                            <path
+                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                fill="currentFill" />
+                        </svg>
+                        <span class="sr-only">Loading...</span>
+                    </span>
+                    }
+
+                </div>
+
+                <div class="w-full">
+                    <label for="countries_multiple"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Preview</label>
+                    <img src="{{fileurl?.url}}" alt="">
+                </div>
+
+                <label for="countries_multiple" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Gallery Image Add* (Required)</label>
+                <!-- <div class="col-span-2 grid grid-cols-2 md:grid-cols-3 gap-4">
+                    @for(image of images;track image; let i = $index){
+                    <div class="w-full" >
+                      <label for="dropzone-file-{{ i }}"
+                        class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                        @if(!gallery[i]){
+                        <ng-container >
+                          <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                              
+                            </svg>
+                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Image {{ i + 1 }}</span></p>
+                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400"> PNG, JPG (MAX. 800x400px)</p>
+                          </div>
+                        </ng-container>
+                        }
+                        @if(gallery[i]){
+                        <ng-container >
+                          <img [src]="gallery[i].url" alt="Uploaded Image" style="width: 100%; height: 100%;">
+                        </ng-container>
+                        }
+                        <input id="dropzone-file-{{ i }}" type="file" (change)="onFileSelectedAll($event)" class="hidden" />
+                      </label>
+                    </div>
+                    }
+                  </div> -->
+                  
+                <div class="col-span-2 grid grid-cols-2 md:grid-cols-3 gap-4">
+
+                    <div class="w-full">
+                        <label for="dropzone-file-1"
+                            class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                            @if(isGalleryUpload){
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Image 1</span> </p>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400"> PNG, JPG (MAX. 800x400px)</p>
+                            </div>
+                            }@else{
+
+                            <img src="{{img1?.url}}"
+                                style="width: 100%; height: 100%;" alt="">
+                            }
+                            <input id="dropzone-file-1" (change)="onFileSelectedAll($event, 1)" type="file" class="hidden" />
+                        </label>
+
+                        
+                        
+
+                    </div>
+                    <div class="w-full">
+                        <label for="dropzone-file-2"
+                            class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                            @if(isGalleryUpload2){
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Image 2</span> </p>
+
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                        class="font-semibold">Click to upload</span> or drag and drop</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400"> PNG, JPG (MAX. 800x400px)</p>
+                            </div>
+                            }@else{
+
+                            <img src="{{img2?.url}}"
+                                style="width: 100%; height: 100%;" alt="">
+                            }
+                            <input id="dropzone-file-2" (change)="onFileSelectedAll($event, 2)" type="file" class="hidden" />
+                        </label>
+
+                        
+                       
+                    </div>
+                    <div class="w-full">
+                        <label for="dropzone-file-3"
+                            class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                            @if(isGalleryUpload3){
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Image 3</span> </p>
+
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                        class="font-semibold">Click to upload</span> or drag and drop</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400"> PNG, JPG (MAX. 800x400px)</p>
+                            </div>
+                            }@else{
+
+                            <img src="{{img3?.url}}"
+                                style="width: 100%; height: 100%;" alt="">
+                            }
+                            <input id="dropzone-file-3" (change)="onFileSelectedAll($event, 3)" type="file" class="hidden" />
+                        </label>
+
+                        
+                        
+
+                    </div>
+                </div>
+                <!-- <div class="sm:col-span-2">
+                    <button [disabled]="!isImgUpload" type="button" (click)="onUpload()"
+                        class="mt-3 px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Gallery Upload</button>
+                </div> -->
+
+                <!-- @if(isImgUpload){
+                    <span role="status">
+                        <svg aria-hidden="true"
+                            class="ml-5 inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                            viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                fill="currentColor" />
+                            <path
+                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                fill="currentFill" />
+                        </svg>
+                        <span class="sr-only">Loading...</span>
+                    </span>
+                    } -->
+
+
+
+                <div class="sm:col-span-2">
+                    <label for="description"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                    <textarea id="description" formControlName="description" rows="8"
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Your description here"></textarea>
+                </div>
+
+                <!-- <div>
+                    <label for="user"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select User</label>
+                    <select id="user"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <option formControlName="users_permissions_user" selected="">Select Owner</option>
+                        @if(userData){
+                            <option value="{{userData?.id}}">{{userData?.email}}</option>
+                        }
+                       
+                    </select>
+                </div> -->
+
+
+            </div>
+            <button type="submit"
+                class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                Submit Entry
+            </button>
+        </form>
+
+
+    </div>
+
+    }@else{
+
+
+    <div role="status" class=" absolute translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2">
+        <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+            viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                fill="currentColor" />
+            <path
+                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                fill="currentFill" />
+        </svg>
+        <span class="sr-only">Loading...</span>
+    </div>
+    }
+</section>
