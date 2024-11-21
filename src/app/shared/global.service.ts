@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalService {
 
-  baseUrl:string= 'https://spa-strapi.onrender.com/api'
+  baseUrl:string= 'https://spa-strapi-1.onrender.com/api'
   // baseUrl:string= 'https://api.cricfootbook.com'
 
   globalToken:string = "70af910f02a243aaf6ce4497162d998c0fdb404e6b54e245e5b01698e19caab33490c8cff0c8b2b73f53971defc84ceca7f75d08d1e3bdbe8f6203f8d50bbaaaeab1934cd37a1851bf8600c4d9a8f9c7b51428bc0cd9f47044a275070c579e61dae31d3f7727e950f7156542b4fdd1dd63ff8a2a9b7e63fa41497ac98c07aa82"
